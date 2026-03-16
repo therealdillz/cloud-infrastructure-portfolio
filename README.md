@@ -27,17 +27,17 @@ foundation across two availability zones in eu-west-2 (London):
 
 Analogies help me understand concepts, I use an estate analogy to explain this:
 - The VPC is the estate grounds - everything lives inside it
-- The Internet Gateway is the front gate — two way traffic for
+- The Internet Gateway is the front gate - two way traffic for
   public resources
-- Public subnets are the front of the estate — resources here get
+- Public subnets are the front of the estate - resources here get
   a visible street address
-- Private subnets are the back of the estate — internal only,
+- Private subnets are the back of the estate - internal only,
   no direct internet access
-- NAT Gateways are the internal security guards — private resources
+- NAT Gateways are the internal security guards - private resources
   can send outbound traffic but nothing unsolicited gets in
 - Elastic IPs are the fixed P.O. box numbers on the security
   guards - permanent addresses so responses know where to return to
-- Availability zones are separate islands — if one goes down,
+- Availability zones are separate islands - if one goes down,
   the other keeps running
 
 ## Project Structure
@@ -61,20 +61,20 @@ aws-infrastructure/
 
 ## Key Design Decisions
 
-**Reusable modules** — the networking module is environment agnostic.
+**Reusable modules** - the networking module is environment agnostic.
 The same blueprint deploys to dev and prod with different values,
 avoiding code duplication.
 
-**Environment separation** — dev uses 10.0.x.x and prod uses
+**Environment separation** - dev uses 10.0.x.x and prod uses
 10.1.x.x CIDR ranges. Non-overlapping ranges mean these VPCs could
 be peered or connected to an on-premises network without routing
 conflicts.
 
-**High availability** — resources are spread across two availability
+**High availability** - resources are spread across two availability
 zones. If eu-west-2a goes offline, eu-west-2b continues serving
 traffic independently.
 
-**One NAT gateway per AZ** — rather than sharing a single NAT
+**One NAT gateway per AZ** - rather than sharing a single NAT
 gateway, each availability zone has its own. This prevents a single
 NAT gateway failure from taking down outbound connectivity for
 all private subnets.
