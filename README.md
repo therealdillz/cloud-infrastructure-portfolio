@@ -103,7 +103,7 @@ terraform destroy after testing to avoid unnecessary costs.
 
 ## Portfolio Roadmap
 
-- [x] Multi-environment networking module
+- [x] Multi-environment networking module (VPC, subnets, IGW, NAT, route tables)
 - [ ] EC2 instances with security groups
 - [ ] Application Load Balancer
 - [ ] Docker containerisation
