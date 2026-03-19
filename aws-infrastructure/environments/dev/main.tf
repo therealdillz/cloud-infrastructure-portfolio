@@ -21,3 +21,15 @@ module "networking" {
     private_subnet_cidrs = var.private_subnet_cidrs
     availability_zones   = var.availability_zones
 }
+
+module "ec2" {
+  source = "../../modules/ec2"
+
+  project_name      = var.project_name
+  environment       = var.environment
+  vpc_id            = module.networking.vpc_id
+  public_subnet_ids = module.networking.public_subnet_ids
+  instance_type     = var.instance_type
+  ami_id            = var.ami_id
+  public_key        = var.public_key
+}
