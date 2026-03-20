@@ -101,11 +101,33 @@ terraform destroy after testing to avoid unnecessary costs.
 - AWS (VPC, EC2 networking primitives, EIP)
 - eu-west-2 (London) region
 
+## Docker Application
+
+A simple Python Flask application containerised with Docker and pushed to AWS ECR.
+
+### What it demonstrates
+- Writing a Dockerfile from scratch
+- Building a Docker image with layered caching
+- Running containers locally and verifying health endpoints
+- Tagging and pushing images to AWS ECR
+
+### How to build and run locally
+```bash
+cd docker-app
+docker build -t dillon-flask-app .
+docker run -p 5001:5000 dillon-flask-app
+```
+
+Visit http://localhost:5001 for the home route.
+Visit http://localhost:5001/health for the health check endpoint.
+
+### ECR Repository
+820242927995.dkr.ecr.eu-west-2.amazonaws.com/dillon-flask-app
+
 ## Portfolio Roadmap
 
 - [x] Multi-environment networking module (VPC, subnets, IGW, NAT, route tables)
-- [ ] EC2 instances with security groups
-- [ ] Application Load Balancer
-- [ ] Docker containerisation
-- [ ] Kubernetes on EKS
+- [x] EC2 instances with security groups
+- [x] Docker containerisation and ECR
+- [ ] Kubernetes on GKE
 - [ ] Prometheus and Grafana observability layer
