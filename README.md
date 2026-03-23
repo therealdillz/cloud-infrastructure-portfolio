@@ -124,10 +124,45 @@ Visit http://localhost:5001/health for the health check endpoint.
 ### ECR Repository
 820242927995.dkr.ecr.eu-west-2.amazonaws.com/dillon-flask-app
 
+## Kubernetes on EKS
+
+Deployed the containerised Flask application onto AWS EKS using Kubernetes manifests.
+
+### What it demonstrates
+- Provisioning a managed EKS cluster using eksctl
+- Writing Kubernetes Deployment and Service manifests
+- Deploying a containerised application from ECR onto EKS
+- Exposing the application publicly via an AWS Load Balancer
+- Debugging real production issues including node capacity constraints,
+  ECR IAM permissions, and platform architecture mismatches
+
+### Architecture
+- EKS cluster with managed t3.small worker nodes across two AZs
+- Deployment managing two replicas with readiness probes
+- LoadBalancer Service distributing traffic across healthy Pods
+- IAM role attached to node instance roles for ECR image pull access
+
+### Key commands
+```bash
+eksctl create cluster --name dillon-portfolio-cluster --region eu-west-2
+kubectl apply -f kubernetes/
+kubectl get pods
+kubectl get service flask-app-service
+eksctl delete cluster --name dillon-portfolio-cluster --region eu-west-2
+```
+
+### Issues debugged
+- t3.micro nodes insufficient due to system Pod overhead - upgraded to t3.small
+- ECR ImagePullBackOff - resolved by attaching AmazonEC2ContainerRegistryReadOnly
+  policy to node instance IAM roles
+- Platform architecture mismatch - rebuilt image with --platform linux/amd64
+  for Apple Silicon compatibility with AWS x86 nodes
+
 ## Portfolio Roadmap
 
 - [x] Multi-environment networking module (VPC, subnets, IGW, NAT, route tables)
 - [x] EC2 instances with security groups
 - [x] Docker containerisation and ECR
-- [ ] Kubernetes on GKE
+- [x] Kubernetes on EKS (Deployment, Service, Load Balancer)
+- [ ] Application Load Balancer
 - [ ] Prometheus and Grafana observability layer
