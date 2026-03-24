@@ -12,3 +12,4 @@ output "security_group_id" {
     description = "ID of the security group attached to the EC2 instance"
     value       = aws_security_group.ec2.id
 }
+

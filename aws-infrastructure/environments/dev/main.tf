@@ -33,3 +33,13 @@ module "ec2" {
   ami_id            = var.ami_id
   public_key        = var.public_key
 }
+
+module "alb" {
+  source = "../../modules/alb"
+
+  project_name      = var.project_name
+  environment       = var.environment
+  vpc_id            = module.networking.vpc_id
+  public_subnet_ids = module.networking.public_subnet_ids
+  instance_id       = module.ec2.instance_id
+}

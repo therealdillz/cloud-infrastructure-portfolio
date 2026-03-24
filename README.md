@@ -162,7 +162,7 @@ eksctl delete cluster --name dillon-portfolio-cluster --region eu-west-2
 
 - [x] Multi-environment networking module (VPC, subnets, IGW, NAT, route tables)
 - [x] EC2 instances with security groups
+- [x] Application Load Balancer (ALB, target group, listener, health checks)
 - [x] Docker containerisation and ECR
 - [x] Kubernetes on EKS (Deployment, Service, Load Balancer)
-- [ ] Application Load Balancer
 - [ ] Prometheus and Grafana observability layer
