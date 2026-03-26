@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build:
+      context: ../aws-infrastructure/docker-app
+    ports:
+      - "5001:5000"
+    networks:
+      - observability
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - observability
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - observability
+
+networks:
+  observability:
+    driver: bridge
