@@ -1,25 +1,25 @@
 terraform {
-    required_providers {
-        aws = {
-            source = "hashicorp/aws"
-            version = "~> 5.0"
-        }
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
     }
+  }
 }
 
 provider "aws" {
-    region = "eu-west-2"
+  region = "eu-west-2"
 }
 
 module "networking" {
-    source = "../../modules/networking"
+  source = "../../modules/networking"
 
-    project_name         = var.project_name
-    environment          = var.environment
-    vpc_cidr             = var.vpc_cidr
-    public_subnet_cidrs  = var.public_subnet_cidrs
-    private_subnet_cidrs = var.private_subnet_cidrs
-    availability_zones   = var.availability_zones
+  project_name         = var.project_name
+  environment          = var.environment
+  vpc_cidr             = var.vpc_cidr
+  public_subnet_cidrs  = var.public_subnet_cidrs
+  private_subnet_cidrs = var.private_subnet_cidrs
+  availability_zones   = var.availability_zones
 }
 
 module "ec2" {
